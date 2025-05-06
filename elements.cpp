@@ -1,157 +1,277 @@
+#include <vector>
+using namespace std;
 
 
-
-/*
-we building alu based the operations
-*/
+//ALU CLASS
 class ALU {
     private:
-        int A,B;
+        int src1, src2, output, zero;
     
     public:
     // THE START OF THE R TYPE OPERATIONS
-        int ADD (int RS1, int RS2) {
-            return RS1 + RS2;
+        void ADD () {
+            output = src1 + src2;
         }
 
-        int SUB (int RS1, int RS2) {
-            return RS1 - RS2;
+        void SUB () {
+            output = src1 - src2;
         }
 
-        int XOR (int RS1, int RS2) {
-            return RS1 xor RS2;
+        void XOR () {
+            output = src1 xor src2;
         }
         
-        int OR (int RS1, int RS2) {
-            return RS1 or RS2;
+        void OR () {
+            output = src1 or src2;
         }
 
-        int AND (int RS1, int RS2) {
-            return RS1 and RS2;
+        void AND () {
+            output = src1 and src2;
         }
 
-        int SLL (int RS1, int RS2) {
-            return RS1 << RS2;
+        void SLL () {
+            output = src1 << src2;
         }
 
-        int SRL (int RS1, int RS2) {
-            return RS1 >> RS2;
+        void SRL () {
+            output = src1 >> src2;
         }
 
-        int SRA (int RS1, int RS2) {
-            return RS1 >> RS2;
+        void SRA () {
+            output = src1 >> src2;
         }
 
-        int SLT (int RS1, int RS2) {
-            return (RS1 < RS2) ? 1 : 0;
+        void SLT () {
+            output = (src1 < src2) ? 1 : 0;
         }
 
-        int SLTU (int RS1, int RS2) {
-            return (RS1 < RS2) ? 1 : 0;
+        void SLTU () {
+            output = (src1 < src2) ? 1 : 0;
         }
 
 
         //THE START OF I TYPE OPERATIONS ARITH
 
-        int ADDI (int RS1, int IMM) {
-            return RS1 + IMM;
+        void ADDI () {
+            output = src1 + src2;
         }
 
 
-        int XORI (int RS1, int IMM) {
-            return RS1 xor IMM;
+        void XORI () {
+            output = src1 xor src2;
         }
         
-        int ORI (int RS1, int IMM) {
-            return RS1 or IMM;
+        int ORI () {
+            output = src1 or src2;
         }
 
-        int ANDI (int RS1, int IMM) {
-            return RS1 and IMM;
+        void ANDI () {
+            output = src1 and src2;
         }
 
-        int SLLI (int RS1, int IMM) {
-            return RS1 << IMM;
+        int SLLI () {
+            output = src1 << src2;
         }
 
-        int SRLI (int RS1, int IMM) {
-            return RS1 >> IMM;
+        void SRLI () {
+            output = src1 >> src2;
         }
 
-        int SRAI (int RS1, int IMM) {
-            return RS1 >> IMM;
+        void SRAI () {
+            output = src1 >> src2;
         }
 
-        int SLTI (int RS1, int IMM) {
-            return (RS1 < IMM) ? 1 : 0;
+        void SLTI () {
+            output = (src1 < src2) ? 1 : 0;
         }
 
-        int SLTUI (int RS1, int IMM) {
-            return (RS1 < IMM) ? 1 : 0;
+        void SLTUI () {
+            output = (src1 < src2) ? 1 : 0;
         }
 
         // I TYPE OPERATIONS FOR LOAD
 
-        int LB (int RS1, int IMM) {
-            return RS1 + IMM;
+        void LB () {
+            output = src1 + src2;
         }
 
-        int LH (int RS1, int IMM) {
-            return RS1 + IMM;
+        void LH () {
+            output = src1 + src2;
         }
 
-        int LW (int RS1, int IMM) {
-            return RS1 + IMM;
+        void LW () {
+            output = src1 + src2;
         }
 
-        int LBU (int RS1, int IMM) {
-            return RS1 + IMM;
+        void LBU () {
+            output = src1 + src2;
         }
 
-        int LHU (int RS1, int IMM) {
-            return RS1 + IMM;
+        void LHU () {
+            output = src1 + src2;
         }
 
         // THE START OF S TYPE INSTRUCTIONS
 
-        int SB (int RS1, int IMM) {
-            return RS1 + IMM;
+        void SB () {
+            output = src1 + src2;
         }
 
-        int SH (int RS1, int IMM) {
-            return RS1 + IMM;
+        void SH () {
+            output = src1 + src2;
         }
 
-        int SW (int RS1, int IMM) {
-            return RS1 + IMM;
+        void SW () {
+            output = src1 + src2;
         }
 
         // NOW FOR THE BRANCH (B-TYPE) WHICH ARE ESSENTIALLY A MODIFIED S-TYPE
 
-        int BEQ (int RS1, int RS2) {
-            return (RS1 == RS2) ? 1 : 0;
+        void BEQ () {
+            zero = (src1 == src2) ? 1 : 0;
         }
 
-        int BNE (int RS1, int RS2) {
-            return (RS1 != RS2) ? 1 : 0;
+        void BNE () {
+            zero = (src1 != src2) ? 1 : 0;
         }
 
-        int BLT (int RS1, int RS2) {
-            return (RS1 < RS2) ? 1 : 0;
+        void BLT () {
+            zero = (src1 < src2) ? 1 : 0;
         }
 
-        int BGE (int RS1, int RS2) {
-            return (RS1 >= RS2) ? 1 : 0;
+        void BGE () {
+            zero = (src1 >= src2) ? 1 : 0;
         }
 
-        int BLTU (int RS1, int RS2) {
-            return (RS1 < RS2) ? 1 : 0;
+        void BLTU () {
+            zero = (src1 < src2) ? 1 : 0;
         }
 
-        int BGEU (int RS1, int RS2) {
-            return (RS1 >= RS2) ? 1 : 0;
+        void BGEU () {
+            zero =  (src1 >= src2) ? 1 : 0;
         }
-
 
     
+};
+
+//REGISTER FILE CLASS
+class REG_FILE {
+    private:
+        int RS1, RS2, RD;
+        int registers[32];
+
+    public:
+        int read_reg1 () {
+            return registers[RS1];
+        }
+
+        int read_reg2 () {
+            return registers[RS2];
+        }
+
+        void write (int R) {
+            registers[RD] = R;
+        }
+};
+
+//INSTRUCTION MEM CLASS
+class INSTRUCTION_MEM {
+    
+    private:
+        int words;
+        vector <int> mem;
+
+        //INPUTS
+        int ADDRESS;
+
+        //OUTPUTS
+        int current_instruction;
+        // vector <int> instructions_to_store;
+        
+
+    public:
+        void create_mem (int size) {
+            words = size;
+            mem.resize(words);
+        }
+
+        void write_mem (vector <int> prog) {
+            for (int i=0; i < prog.size(); i++) {
+                mem[i] = prog[i];
+            }
+        }
+
+        void read_mem () {
+            current_instruction = mem[ADDRESS];
+        }
+
+        void input_setter (int addr) {
+            ADDRESS = addr;
+        }
+};
+
+//DATA MEM CLASS
+class DATA_MEM {
+    private:
+        int words;
+        vector <int> mem;
+
+        //INPUTS TO THE MEMORY
+        int ADDRESS;
+        int data_to_store;
+
+        //OUTPUT OF THE MEMORY
+        int loaded_data;
+
+    public:
+        void create_mem () {
+            mem.resize(words);
+        }
+
+        void write_mem () {
+            mem[ADDRESS] = data_to_store;
+        }
+
+        void read_mem ()  {
+            loaded_data = mem[ADDRESS];
+        }
+
+        void set_mem_size (int size) {
+            words = size;
+        }
+
+        void input_setter (int addr, int data) {
+            ADDRESS = addr;
+            data_to_store = data;
+        }
+
+};
+
+//ADDER CLASS FOR THE TWO ADDERS
+class adder {
+    private:
+        int src1, src2, output;
+
+    public:
+        void add () {
+            output =  src1 + src2;
+        }
+
+        void inputs_setter (int a, int b) {
+            src1 = a;
+            src2 = b;
+        }
+};
+
+//2_1 MUX CLASS
+class {
+    private:
+        //INPUTS
+        int src0, src1;
+
+        //OUTPUTS
+        int output;
+
+    public:
+        void output_setter (int select)
 };
