@@ -5,9 +5,17 @@ using namespace std;
 //ALU CLASS
 class ALU {
     private:
-        int src1, src2, output, zero;
+        //INPUTS
+        int src1, src2;
+        //OUTPUTS
+        int output, zero;
     
     public:
+        void inputs_setter (int a, int b) {
+            src1 = a;
+            src2 = b;
+        }
+
     // THE START OF THE R TYPE OPERATIONS
         void ADD () {
             output = src1 + src2;
@@ -248,7 +256,7 @@ class DATA_MEM {
 };
 
 //ADDER CLASS FOR THE TWO ADDERS
-class adder {
+class ADDER {
     private:
         int src1, src2, output;
 
@@ -264,14 +272,151 @@ class adder {
 };
 
 //2_1 MUX CLASS
-class {
+class MUX2_1 {
     private:
         //INPUTS
-        int src0, src1;
+        int src0, src1, select;
 
         //OUTPUTS
         int output;
 
     public:
-        void output_setter (int select)
+        void inputs_setter (int a, int b, int s) {
+                src0 = a;
+                src1 = b;
+                select = s;
+        }
+
+        void output_setter () {
+            output = (select == 0) ? src0 : src1;
+        }
+};
+
+//SIGN EXTENDER CLASS
+class SIGN_EXTENDER {
+    private:
+        //INPUT
+        int IMM;
+
+        //OUTPUT
+        int extended_val;
+
+    public:
+        void input_setter (int a) {
+            IMM = a;
+        }
+
+        void output_setter () {
+            extended_val = IMM;
+        }
+
+};
+
+//2R_SHIFTER
+class SHIFTER_2R {
+    private:
+        //INPUT
+        int extended_val;
+
+        //OUTPUT
+        int shifted_val;
+    
+    public:
+        void input_setter (int a) {
+            extended_val = a;
+        }
+
+        void out_setter () {
+            shifted_val = extended_val << 2;
+        }
+};
+
+//32BIT REG (PC)
+class REG_32BIT {
+    private:
+        //INPUT
+        int input_addr;
+
+        //OUTPUT
+        int output_addr;
+
+    public:
+        void input_setter (int a) {
+            input_addr = a;
+        }
+
+        void output_setter () {
+            output_addr = input_addr;
+        }
+};
+
+
+//NOW ONTO THE CONTROL ELEMENTS
+
+//CONTROL_UNIT CLASS
+
+class CONTROL_UNIT {
+    private:
+        //INPUT
+        int opcode;
+
+        //OUTPUTS
+        int branch, memRead, memtoReg, ALUop, memWrite, ALUsrc, regWrite;
+        //ALL SIGNALS ARE 1-BIT AND THE ALUOP IS 2
+
+    public:
+        void input_setter (int a) {
+            opcode = a;
+        }
+
+        //ALUop = 00 -> add (A and B) ... loads, stores, immediates
+        //ALUop = 01 -> branch (compare A and B)
+        //ALUop = 10 -> use funct3 and funct7.. R -TYPES
+        void outputs_setter () {
+                if (opcode == 51) { //R-TYPE
+                    branch = 0;
+                    memRead = 0;
+                    memtoReg =0;
+                    ALUop = 2;
+                    memWrite = 0;
+                    ALUsrc = 0;
+                    regWrite = 1;
+                }
+                else if (opcode == 19) { //I-TYPE ARITHMETIC
+                    branch = 0;
+                    memRead = 0;
+                    memtoReg = 0;
+                    ALUop = 0;
+                    memWrite = 0;
+                    ALUsrc = 1;
+                    regWrite = 1;
+                }
+                else if (opcode == 3) { //I-TYPE LOADS
+                    branch = 0;
+                    memRead = 1;
+                    memtoReg = 1;
+                    ALUop = 0;
+                    memWrite = 0;
+                    ALUsrc = 1;
+                    regWrite = 1;
+                }
+                else if (opcode == 35) { //S-TYPE
+                    branch = 0;
+                    memRead = 0;
+                    memtoReg = -1;
+                    ALUop = 0;
+                    memWrite = 1;
+                    ALUsrc = 1;
+                    regWrite = 0;
+                }
+                else if (opcode == 99) { //B-TYPE
+                    branch = 0;
+                    memRead = 0;
+                    memtoReg = -1;
+                    ALUop = 0;
+                    memWrite = 1;
+                    ALUsrc = 1;
+                    regWrite = 0;
+                }
+        }
 };
